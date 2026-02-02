@@ -24,7 +24,7 @@ impl<F: PrimeField, const C: usize, const M: usize> SubtableStrategy<F, C, M>
       materialized.push(row);
     }
 
-    [materialized]
+    std::array::from_fn(|_| materialized.clone())
   }
 
   fn evaluate_subtable_mle(_: usize, point: &Vec<F>) -> F {

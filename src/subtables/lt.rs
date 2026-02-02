@@ -26,7 +26,13 @@ impl<F: PrimeField, const C: usize, const M: usize> SubtableStrategy<F, C, M>
       materialized_eq.push(F::from((lhs == rhs) as u64));
     }
 
-    [materialized_lt, materialized_eq]
+    std::array::from_fn(|i| {
+      if i == 0 {
+        materialized_lt.clone()
+      } else {
+        materialized_eq.clone()
+      }
+    })
   }
 
   /// LT = (1-x_i)* y_i * eq(x_{>i}, y_{>i})

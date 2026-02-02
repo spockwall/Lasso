@@ -30,7 +30,11 @@ impl<F: PrimeField, const C: usize, const M: usize, const LOG_R: usize> Subtable
 
     let zeros: Vec<F> = vec![F::zero(); M];
 
-    [full, remainder, zeros]
+    std::array::from_fn(|i| match i {
+      0 => full.clone(),
+      1 => remainder.clone(),
+      _ => zeros.clone(),
+    })
   }
 
   fn evaluate_subtable_mle(subtable_index: usize, point: &Vec<F>) -> F {
