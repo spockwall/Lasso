@@ -1,5 +1,6 @@
 use crate::lasso::surge::SparsePolyCommitmentGens;
 use crate::subtables::and::AndSubtableStrategy;
+use crate::subtables::brightness::BrightnessSubtableStrategy;
 use crate::{
   lasso::{
     densified::DensifiedRepresentation,
@@ -75,6 +76,7 @@ macro_rules! single_pass_lasso {
 pub enum BenchType {
   JoltDemo,
   Halo2Comparison,
+  Brightness,
 }
 
 #[allow(unreachable_patterns)] // good errors on new BenchTypes
@@ -82,6 +84,7 @@ pub fn benchmarks(bench_type: BenchType) -> Vec<(tracing::Span, fn())> {
   match bench_type {
     BenchType::JoltDemo => jolt_demo_benchmarks(),
     BenchType::Halo2Comparison => halo2_comparison_benchmarks(),
+    BenchType::Brightness => brightness_benchmarks(),
     _ => panic!("BenchType does not have a mapping"),
   }
 }
@@ -227,6 +230,131 @@ fn halo2_comparison_benchmarks() -> Vec<(tracing::Span, fn())> {
       /* C= */ 1,
       /* M= */ 1 << 16,
       /* S= */ 1 << 24
+    ),
+  ]
+}
+
+fn brightness_benchmarks() -> Vec<(tracing::Span, fn())> {
+  vec![
+    // Single pixel benchmarks (C=1)
+    single_pass_lasso!(
+      "Brightness(2^10)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 10
+    ),
+    single_pass_lasso!(
+      "Brightness(2^12)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 12
+    ),
+    single_pass_lasso!(
+      "Brightness(2^14)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 14
+    ),
+    single_pass_lasso!(
+      "Brightness(2^16)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 16
+    ),
+    single_pass_lasso!(
+      "Brightness(2^18)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 18
+    ),
+    single_pass_lasso!(
+      "Brightness(2^20)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 20
+    ),
+    single_pass_lasso!(
+      "Brightness(2^22)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 1,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 22
+    ),
+    // Batch processing benchmarks (C=4, processing 4 pixels simultaneously)
+    single_pass_lasso!(
+      "Brightness_4x(2^14)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 4,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 14
+    ),
+    single_pass_lasso!(
+      "Brightness_4x(2^16)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 4,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 16
+    ),
+    single_pass_lasso!(
+      "Brightness_4x(2^18)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 4,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 18
+    ),
+    // Batch processing benchmarks (C=8, processing 8 pixels simultaneously)
+    single_pass_lasso!(
+      "Brightness_8x(2^16)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 8,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 16
+    ),
+    single_pass_lasso!(
+      "Brightness_8x(2^18)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 8,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 18
+    ),
+    single_pass_lasso!(
+      "Brightness_8x(2^20)",
+      Fr,
+      EdwardsProjective,
+      BrightnessSubtableStrategy,
+      /* C= */ 8,
+      /* M= */ 1 << 16,
+      /* S= */ 1 << 20
     ),
   ]
 }
