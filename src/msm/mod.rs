@@ -53,6 +53,7 @@ pub trait VariableBaseMSM: ScalarMul {
 
   /// Streaming multi-scalar multiplication algorithm with hard-coded chunk
   /// size.
+  #[allow(dead_code)]
   fn msm_chunks<I: ?Sized, J>(bases_stream: &J, scalars_stream: &I) -> Self
   where
     I: Iterable,

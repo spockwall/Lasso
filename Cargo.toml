@@ -68,7 +68,7 @@ multicore = ["rayon"]
 ark-msm = [] # run with arkworks MSM without small field element optimization
 
 [[bench]]
-path = "src/benches"
+path = "src/benches/dimensions.rs"
 name = "dimensions"
 harness = false
 
