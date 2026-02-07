@@ -95,6 +95,7 @@ pub enum BenchType {
   Halo2Comparison,
   Brightness,
   Contrast,
+  Shadow,
 }
 
 #[allow(unreachable_patterns)] // good errors on new BenchTypes
@@ -104,6 +105,7 @@ pub fn benchmarks(bench_type: BenchType) -> Vec<(tracing::Span, fn())> {
     BenchType::Halo2Comparison => halo2_comparison_benchmarks(),
     BenchType::Brightness => crate::benches::processing::brightness::brightness_benchmarks(),
     BenchType::Contrast => crate::benches::processing::contrast::contrast_benchmarks(),
+    BenchType::Shadow => crate::benches::processing::shadow::shadow_benchmarks(),
     _ => panic!("BenchType does not have a mapping"),
   }
 }
