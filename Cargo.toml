@@ -65,6 +65,7 @@ default = [
     "multicore"
 ]
 multicore = ["rayon"]
+parallel = ["rayon"]  # Alias for multicore, needed for ark_std::cfg_into_iter! macro
 ark-msm = [] # run with arkworks MSM without small field element optimization
 
 #[[bench]]
