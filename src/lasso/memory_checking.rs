@@ -193,7 +193,7 @@ impl<F: PrimeField> GrandProducts<F> {
     let prod_write = GrandProductCircuit::new(&grand_product_input_write);
     let prod_final = GrandProductCircuit::new(&grand_product_input_final);
 
-    #[cfg(debug)]
+    #[cfg(debug_assertions)]
     {
       let hashed_write_set: F = prod_init.evaluate() * prod_write.evaluate();
       let hashed_read_set: F = prod_read.evaluate() * prod_final.evaluate();
