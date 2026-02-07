@@ -20,11 +20,14 @@ use crate::{
 use rayon::prelude::*;
 
 pub mod and;
-pub mod brightness;
 pub mod lt;
 pub mod or;
 pub mod range_check;
 pub mod xor;
+
+// custom subtables for image processing
+pub mod brightness;
+pub mod contrast;
 
 #[cfg(test)]
 pub mod test;

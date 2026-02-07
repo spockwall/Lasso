@@ -61,12 +61,29 @@ macro_rules! single_pass_lasso {
       let _commitment = dense.commit::<$group>(&gens);
       let mut random_tape = RandomTape::new(b"proof");
       let mut prover_transcript = Transcript::new(b"example");
-      let _proof = SparsePolynomialEvaluationProof::<G, C, M, SubtableStrategy>::prove(
+      let proof = SparsePolynomialEvaluationProof::<G, C, M, SubtableStrategy>::prove(
         &mut dense,
         &r,
         &gens,
         &mut prover_transcript,
         &mut random_tape,
+      );
+
+      // Calculate proof size
+      use ark_serialize::CanonicalSerialize;
+      let mut proof_bytes = Vec::new();
+      proof
+        .serialize_compressed(&mut proof_bytes)
+        .expect("Serialization failed");
+      let proof_size = proof_bytes.len();
+
+      tracing::info!(
+        proof_size_bytes = proof_size,
+        proof_size_kb = format!("{:.2}", proof_size as f64 / 1024.0),
+        sparsity = S,
+        memory_size = M,
+        columns = C,
+        "Proof size"
       );
     })
   };
