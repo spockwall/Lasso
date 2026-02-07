@@ -9,9 +9,9 @@ use crate::{
 };
 use ark_curve25519::{EdwardsProjective, Fr};
 use ark_ff::PrimeField;
+use ark_std::rand::RngCore;
 use ark_std::{log2, test_rng};
 use merlin::Transcript;
-use rand_chacha::rand_core::RngCore;
 
 pub fn gen_indices<const C: usize>(sparsity: usize, memory_size: usize) -> Vec<[usize; C]> {
   let mut rng = test_rng();

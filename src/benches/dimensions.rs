@@ -7,11 +7,11 @@ use crate::subtables::lt::LTSubtableStrategy;
 use crate::utils::random::RandomTape;
 use ark_curve25519::{EdwardsProjective, Fr};
 use ark_ff::PrimeField;
+use ark_std::rand::RngCore;
 use ark_std::{log2, test_rng};
 use criterion::{criterion_group, criterion_main, Criterion};
 use merlin::Transcript;
 use num_integer::Roots;
-use rand_chacha::rand_core::RngCore;
 
 macro_rules! bench_lasso {
   ($field:ty, $group:ty, $subtable_strategy:ty, $N:expr, $C:expr, $M:expr, $sparsity:expr, $criterion:expr, $field_name:expr) => {{

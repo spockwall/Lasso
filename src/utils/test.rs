@@ -1,16 +1,14 @@
 use ark_ec::CurveGroup;
 use ark_ff::PrimeField;
 use ark_serialize::CanonicalSerialize;
+use ark_std::rand::RngCore;
 use ark_std::test_rng;
 use merlin::Transcript;
-use rand_chacha::rand_core::RngCore;
 
 use crate::utils::transcript::ProofTranscript;
 
 pub fn gen_random_points<F: PrimeField, const C: usize>(memory_bits: usize) -> [Vec<F>; C] {
-  std::array::from_fn(|_| {
-    gen_random_point(memory_bits)
-  })
+  std::array::from_fn(|_| gen_random_point(memory_bits))
 }
 
 pub fn gen_random_point<F: PrimeField>(memory_bits: usize) -> Vec<F> {
@@ -130,7 +128,7 @@ impl<G: CurveGroup> ProofTranscript<G> for TestTranscript<G::ScalarField> {
 
 mod test {
   use super::{ProofTranscript, TestTranscript};
-  use ark_curve25519::{Fr, EdwardsProjective as G1Projective};
+  use ark_curve25519::{EdwardsProjective as G1Projective, Fr};
   use ark_ec::CurveGroup;
   use ark_ff::PrimeField;
 
