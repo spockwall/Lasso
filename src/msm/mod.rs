@@ -5,9 +5,7 @@ use ark_std::{borrow::Borrow, iterable::Iterable, vec::Vec};
 
 use ark_ec::{CurveGroup, ScalarMul};
 
-#[cfg(feature = "parallel")]
-use rayon::prelude::*;
-
+#[cfg(feature = "multicore")]
 #[cfg(not(feature = "ark-msm"))]
 impl<G: CurveGroup> VariableBaseMSM for G {}
 
@@ -220,7 +218,7 @@ fn msm_bigint<V: VariableBaseMSM>(
 
           // We right-shift by w_start, thus getting rid of the
           // lower bits.
-          scalar.divn(w_start as u32);
+          scalar >>= w_start as u32;
 
           // We mod the remaining bits by 2^{window size}, thus taking `c` bits.
           let scalar = scalar.as_ref()[0] % (1 << c);

@@ -53,6 +53,7 @@ pub struct PolyCommitment<G: CurveGroup> {
   C: Vec<G>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug, CanonicalSerialize, CanonicalDeserialize)]
 pub struct ConstPolyCommitment<G: CurveGroup> {
   C: G,
