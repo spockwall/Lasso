@@ -28,6 +28,7 @@ pub mod xor;
 // custom subtables for image processing
 pub mod brightness;
 pub mod contrast;
+pub mod shadow;
 
 #[cfg(test)]
 pub mod test;
