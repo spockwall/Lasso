@@ -5,7 +5,9 @@ use ark_std::{borrow::Borrow, iterable::Iterable, vec::Vec};
 
 use ark_ec::{CurveGroup, ScalarMul};
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "parallel")]
+use rayon::prelude::*;
+
 #[cfg(not(feature = "ark-msm"))]
 impl<G: CurveGroup> VariableBaseMSM for G {}
 
