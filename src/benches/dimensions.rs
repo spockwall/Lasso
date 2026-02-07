@@ -1,17 +1,14 @@
+use crate::lasso::{
+  densified::DensifiedRepresentation,
+  surge::{SparseLookupMatrix, SparsePolyCommitmentGens, SparsePolynomialEvaluationProof},
+};
+use crate::subtables::and::AndSubtableStrategy;
+use crate::subtables::lt::LTSubtableStrategy;
+use crate::utils::random::RandomTape;
 use ark_curve25519::{EdwardsProjective, Fr};
 use ark_ff::PrimeField;
 use ark_std::{log2, test_rng};
 use criterion::{criterion_group, criterion_main, Criterion};
-use liblasso::lasso::surge::SparsePolyCommitmentGens;
-use liblasso::subtables::and::AndSubtableStrategy;
-use liblasso::subtables::lt::LTSubtableStrategy;
-use liblasso::{
-  lasso::{
-    densified::DensifiedRepresentation,
-    surge::{SparseLookupMatrix, SparsePolynomialEvaluationProof},
-  },
-  utils::random::RandomTape,
-};
 use merlin::Transcript;
 use num_integer::Roots;
 use rand_chacha::rand_core::RngCore;
